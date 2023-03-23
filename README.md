@@ -4,5 +4,3 @@ Our Approach:
 2. Take input of operator and then operands.
 3. Check whether the user wants to quit the program if yes then quit it, for this, we can use a special character and tell the user about it like here we used “x”. 
 4.Using switch case check operators and do operations accordingly.
-
-
