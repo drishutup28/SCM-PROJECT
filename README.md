@@ -1,6 +1,2 @@
-Simple Calculator Using Switch Case:
-Our Approach:
-1. We will do all the following steps inside a never-ending loop so that the calculator program keeps on working.
-2. Take input of operator and then operands.
-3. Check whether the user wants to quit the program if yes then quit it, for this, we can use a special character and tell the user about it like here we used “x”. 
-4.Using switch case check operators and do operations accordingly.
+It solves the problem to manage the record in the hospital about the name of the patient, its diseases, its ID, and its location so that we can easily identify the problem and provide the best solution. In this project, we create the website's backend using the C programming language.
+In this project, we are adding one new collaborator (Divya Bhoria). By using this hospital management system, it is very easy to do the work, as managing such big data at one place is very difficult and cannot be done on one system or by one person.
