@@ -1,40 +1,91 @@
-#include <stdio.h>
-#include <stdlib.h>
- 
-int main()
+void addPatientInDataBase()
 {
-    char ch;
-    double a, b;
-    while (1) {
-        printf("Enter an operator (+, -, *, /), if want to exit press x: ");
-        scanf(" %c", &ch);
-        // to exit
-        if (ch == 'x')
-            exit(0);
-        printf("Enter two first and second operand: ");
-        scanf("%lf %lf",&a,&b);
-        // Using switch case we will differentiate
-        // operations based on different operator
-        switch (ch) {
-        // For Addition
-        case '+':
-            printf("%.1lf + %.1lf = %.1lf\n", a, b, a + b);
-            break;
-        // For Subtraction
-        case '-':
-            printf("%.1lf - %.1lf = %.1lf\n", a, b, a - b);
-            break;
-        // For Multiplication
-        case '*':
-            printf("%.1lf * %.1lf = %.1lf\n", a, b, a * b);
-            break;
-        // For Division
-        case '/':
-            printf("%.1lf / %.1lf = %.1lf\n", a, b, a / b);
-            break;
-        // If operator doesn't match any case constant
-        default:
-            printf("Error! please write a valid operator\n");
+    s_PatientInfo addPatientInfoInDataBase = {0};
+    FILE *fp = NULL;
+    int status = 0;
+    fp = fopen(FILE_NAME,"ab+");
+    if(fp == NULL)
+    {
+        printf("File is not opened\n");
+        exit(1);
+    }
+    headMessage("ADD NEW PATIENT");
+    printf("\n\n\t\t\tENTER YOUR DETAILS BELOW:");
+    printf("\n\t\t\t---------------------------------------------------------------------------\n");
+    printf("\n\t\t\tPatient ID  = ");
+    fflush(stdin);
+    scanf("%u",&addPatientInfoInDataBase.patientRecordId);
+    do
+    {
+        printf("\n\t\t\tPatient Father Name  = ");
+        fflush(stdin);
+        fgetsRemovedNewLine(addPatientInfoInDataBase.patientFatherName,MAX_FATHER_NAME,stdin);
+        status = isNameValid(addPatientInfoInDataBase.patientFatherName);
+        if (!status)
+        {
+            printf("\n\t\t\tName contain invalid character. Please enter again.");
         }
     }
+    while(!status);
+    do
+    {
+        printf("\n\t\t\tPatient Name  = ");
+        fflush(stdin);
+        fgetsRemovedNewLine(addPatientInfoInDataBase.patientName,MAX_PATIENT_NAME,stdin);
+        status = isNameValid(addPatientInfoInDataBase.patientName);
+        if (!status)
+        {
+            printf("\n\t\t\tName contain invalid character. Please enter again.");
+        }
+    }
+    while(!status);
+    do
+    {
+        printf("\n\t\t\tPatient Address  = ");
+        fflush(stdin);
+        fgetsRemovedNewLine(addPatientInfoInDataBase.patientAddr,MAX_FATHER_NAME,stdin);
+        status = isNameValid(addPatientInfoInDataBase.patientAddr);
+        if (!status)
+        {
+            printf("\n\t\t\tName contain invalid character. Please enter again.");
+        }
+    }
+    while(!status);
+
+    do
+    {
+        printf("\n\t\t\tPatient Disease  = ");
+        fflush(stdin);
+        fgetsRemovedNewLine(addPatientInfoInDataBase.patientDisease,MAX_PATIENT_DISEASE,stdin);
+        status = isNameValid(addPatientInfoInDataBase.patientDisease);
+        if (!status)
+        {
+            printf("\n\t\t\tName contain invalid character. Please enter again.");
+        }
+    }
+    while(!status);
+
+    printf("\n\t\t\tPatient Total Charge  = ");
+    fflush(stdin);
+    scanf("%f",&addPatientInfoInDataBase.patientTotalFees);
+    printf("\n\t\t\tPatient Initial Deposit  = ");
+    fflush(stdin);
+    scanf("%f",&addPatientInfoInDataBase.patientDepositMoney);
+    do
+    {
+        printf("\n\t\t\tPatient Admit Date:- ");
+        //get date year,month and day from user
+        printf("\n\t\t\tEnter date in format (dd/mm/yyyy): ");
+        scanf("%d/%d/%d",&addPatientInfoInDataBase.patientAdmitDate.dd,&addPatientInfoInDataBase.patientAdmitDate.mm,&addPatientInfoInDataBase.patientAdmitDate.yyyy);
+        //check date validity
+        status = isValidDate(&addPatientInfoInDataBase.patientAdmitDate);
+        if (!status)
+        {
+            printf("\n\t\t\tPlease enter a valid date.\n");
+        }
+    }
+    while(!status);
+
+    fwrite(&addPatientInfoInDataBase,sizeof(addPatientInfoInDataBase), 1, fp);
+    fclose(fp);
 }
